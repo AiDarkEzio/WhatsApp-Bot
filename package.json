@@ -1,0 +1,19 @@
+{
+  "name": "whatsapp-bot",
+  "version": "1.0.0",
+  "description": "This TypeScript WhatsApp bot is a simple chatbot created using the `@adiwajshing/baileys` library.A TypeScript WhatsApp bot is a chatbot programmed in TypeScript that interacts with users on WhatsApp. It responds to commands, provides information, and performs tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AiDarkEzio/WhatsApp-Bot.git"
+  },
+  "author": "AiDarkEzio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AiDarkEzio/WhatsApp-Bot/issues"
+  },
+  "homepage": "https://github.com/AiDarkEzio/WhatsApp-Bot#readme"
+}
