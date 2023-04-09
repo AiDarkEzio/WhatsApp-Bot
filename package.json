@@ -4,7 +4,16 @@
   "description": "This TypeScript WhatsApp bot is a simple chatbot created using the `@adiwajshing/baileys` library.A TypeScript WhatsApp bot is a chatbot programmed in TypeScript that interacts with users on WhatsApp. It responds to commands, provides information, and performs tasks",
   "main": "index.js",
   "scripts": {
-    "test": "npm index.js"
+    "build": "tsc",
+    "build:js": "npm i && tsc",
+    "auth:recreate": "node index.js",
+    "auth:remove": "rm -rf database/baileys/store_multi.json",
+    "start": "supervisor index.js",
+    "test:clear:build": "npm run build && clear && npm run test",
+    "tests:clear:build": "npm run build && clear && npm run tests",
+    "tests:build": "tsc tests/index.ts && node tests/index.js",
+    "tests": "node tests/index.js",
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +24,26 @@
   "bugs": {
     "url": "https://github.com/AiDarkEzio/WhatsApp-Bot/issues"
   },
-  "homepage": "https://github.com/AiDarkEzio/WhatsApp-Bot#readme"
+  "homepage": "https://github.com/AiDarkEzio/WhatsApp-Bot#readme",
+  "dependencies": {
+    "@adiwajshing/baileys": "^5.0.0",
+    "@aidarkezio/main-func": "^2.3.0",
+    "@hapi/boom": "^10.0.1",
+    "@types/node": "^18.15.10",
+    "chalk": "^4.1.2",
+    "jimp": "^0.16.13",
+    "link-preview-js": "^3.0.4",
+    "pino": "^8.11.0",
+    "qrcode-terminal": "^0.12.0",
+    "supervisor": "^0.12.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2",
+    "yt-search": "^2.10.4",
+    "ytdl-core": "^4.11.3"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.10",
+    "@types/ws": "^8.5.4",
+    "@types/yt-search": "^2.3.2"
+  }
 }

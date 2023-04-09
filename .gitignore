@@ -102,3 +102,16 @@ dist
 
 # TernJS port file
 .tern-port
+
+test.js
+test.ts
+
+docxz.txt
+
+**.js
+
+auth
+
+temp/**
+
+test.**
