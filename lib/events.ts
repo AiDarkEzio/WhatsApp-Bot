@@ -17,10 +17,10 @@ export const presenceUpdate = (arg: typesEvent.presenceUpdate) => {
       chalk.magenta(
         presences.lastKnownPresence
           ? presences.lastKnownPresence
-          : presences.lastSeen
+          : presences.lastSeen ? new Date(presences.lastSeen) : presences.lastSeen
       ),
     presences.lastSeen ? ":" : "",
-    chalk.magentaBright(presences.lastSeen ? presences.lastSeen : "")
+    chalk.magentaBright(presences.lastSeen ? new Date(presences.lastSeen) : "")
   );
 };
 
@@ -30,6 +30,9 @@ export const connectionUpdate = async (socket: typesSocket.WebSocketInfo) => {
     if (arg.connection == "connecting")
       console.log(chalk.yellow("👩 Connecting to WhatsApp...▶"));
     else if (arg.connection == "open") {
+      fs.readdirSync("./temp").forEach((file) => {
+        fs.unlinkSync(`./plugins/${file}`);
+      });
       console.log(
         chalk.green(
           `👩 Login successful! ▶\n  Baileys ${
@@ -99,14 +102,14 @@ export const connectionUpdate = async (socket: typesSocket.WebSocketInfo) => {
 
 export const messagingHistorySet = async (arg: typesEvent.messagingHistorySet) => {
   console.log(chalk.blue("Setting up messaging history...."));
-  const pathMessagingHistory = path.join('..', 'database', 'json', 'messagingHistory.json');
+  const pathMessagingHistory = path.join(__dirname, '..', 'database', 'json', 'messagingHistory.json');
   fs.writeFileSync(pathMessagingHistory, JSON.stringify(arg), { encoding: 'utf-8' })
   console.log(chalk.green("Seted up messaging history."));
 };
 
 export const blockListSet = async (arg:{ blocklist:string[]}) => {
   console.log(chalk.blue("Setting up block list...."));
-  const pathMessagingHistory = path.join('..', 'database', 'json', 'blockListSet.json');
+  const pathMessagingHistory = path.join(__dirname, '..', 'database', 'json', 'blockListSet.json');
   fs.writeFileSync(pathMessagingHistory, JSON.stringify(arg), { encoding: 'utf-8' })
   console.log(chalk.green("Seted up block list."));
 };
@@ -126,6 +129,7 @@ export async function messagesUpsert(socket: typesSocket.WebSocketInfo, commands
       console.log(chalk.cyan('Without message: '), JSON.stringify(message))
     } else {
       let normalizedWAMessage = await lib.normalize.normalizeWAMessage(socket, message);
+      // console.log(normalizedWAMessage);
       lib.functions.messagesUpsertLogger(normalizedWAMessage);
       commands.map(async item => {
         item.commands.map(async i => {
@@ -133,6 +137,8 @@ export async function messagesUpsert(socket: typesSocket.WebSocketInfo, commands
             try {
               await item.function(normalizedWAMessage, socket);
             } catch (error) {
+              normalizedWAMessage.reply({ text: `*Somthing went wrong.*` })
+              console.log(error);
               console.log(chalk.red(error));
             }
           }

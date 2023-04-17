@@ -80,3 +80,17 @@ export const sendMessageWithRecording = async (
   
   return await socket.sendMessage(jid, content, options);
 };
+
+export function customFilter<T>(arr: T[], callbackfn: (value: T, index: number, array: T[]) => boolean): T[] {
+    const result: T[] = [];
+  
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      if (callbackfn(element, i, arr)) {
+        result.push(element);
+      }
+    }
+  
+    return result;
+  }
+  
