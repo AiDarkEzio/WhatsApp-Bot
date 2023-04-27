@@ -1,3 +1,4 @@
+# (closed)
 # WhatsApp-Bot
 
 This TypeScript WhatsApp bot is a simple chatbot created using the `@adiwajshing/baileys` library.A TypeScript WhatsApp bot is a chatbot programmed in TypeScript that interacts with users on WhatsApp. It responds to commands, provides information, and performs tasks
